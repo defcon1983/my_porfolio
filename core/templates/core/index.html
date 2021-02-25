@@ -1,0 +1,207 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Desarrollador Backend</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	  
+		
+		{% load static %}
+		<link rel="stylesheet" href="{% static 'core/assets/css/main.css' %}" />
+		<noscript><link rel="stylesheet" href="{% static 'core/assets/css/noscript.css' %}" /></noscript>
+
+	</head>
+	<body class="is-preload">
+
+		<!-- Sidebar -->
+			<section id="sidebar">
+				<div class="inner">
+					<nav>
+						<ul>
+							<li><a href="#intro">Bienvenidos</a></li>
+							<li><a href="#one">Portafolio</a></li>
+							<li><a href="#two">Mis Habilidades</a></li>
+							<li><a href="#three">Contactame</a></li>
+						</ul>
+					</nav>
+				</div>
+			</section>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Intro -->
+					<section id="intro" class="wrapper style1 fullscreen fade-up">
+						<div class="inner">
+							
+							{% for welcome in Welcome %}
+							<h1>{{ welcome.encabezado }}</h1>
+							<p>{{ welcome.biografia }}</p>
+						
+								
+							
+							
+							<ul class="actions">
+								<li><a href="{% url 'mis_datos' welcome.id %}" class="button scrolly">Leer mas</a></li>
+							</ul>
+							{% endfor %}
+						</div>
+					</section>
+
+				<!-- One -->
+					<section id="one" class="wrapper style2 spotlights">
+						{% for project in Project %}
+						<section>
+							<a href="{{ project.img.url }}" class="image"><img src="{{ project.img.url }}" alt="" data-position="center center" /></a>
+							<div class="content">
+								<div class="inner">
+									<h2>{{ project.titulo }}</h2>
+									<p>{{ project.descripcion }}</p>
+									<ul class="actions">
+										<li><a href="{% url 'detalles' project.id %}" class="button">Mas detalles</a></li>
+									</ul>
+								</div>
+							</div>
+						</section>
+						{% endfor %}
+					</section>
+
+				<!-- Two -->
+					<section id="two" class="wrapper style3 fade-up">
+						<div class="inner">
+							<h2>Mis habilidades</h2>
+							<p>Incluyo parte de lo que hacido mi formacion como esstudiante autodidacta, ya que actualmente estoy en la carrera de Gestion y Desarrollo de Software</p>
+							<div class="features">
+								
+							
+							{% for skill in Skill %}
+							<section>
+								<span class="{{ skill.icon }}"></span>
+								<h3>{{ skill.titulo }}</h3>
+								<p>{{ skill.descripcion }}</p>
+									
+							<ul class="actions">
+								<li><a href="{% url 'skill_detalles' skill.id %}" class="button">Learn more</a></li>
+							</ul>
+							</section>
+							{% endfor %}
+								
+							
+			
+
+							</div>
+							
+						</div>
+					</section>
+
+				<!-- Three -->
+	
+					<section id="three" class="wrapper style1 fade-up">
+						<div class="inner">
+							<h2>Contactame</h2>
+							<p>Puedes contactarme y a la brevedad me contactaria contigo.</p>
+							<div class="split style1">
+								<section>
+					<!--
+							<form action="" method="POST">
+								
+								{% if 'ok' in request.GET %}
+									<p><b> 
+										Su mensaje se a enviado correctamente, pronto me pondre en contacto con usted.
+									</b></p>
+								{% endif %}
+									
+								{% csrf_token %}
+									{{ contact_form.as_p }}
+								<button type="submit">enviar</button>
+							</form>
+					-->		
+										{% if 'ok' in request.GET %}
+											<p><b> 
+												Su mensaje se a enviado correctamente, pronto me pondre en contacto con usted.
+											</b></p>
+										{% endif %}
+									<form action="" method="POST">
+										{% csrf_token %}
+										<div class="fields">
+											<div class="field half">
+												<label for="name">Name</label>
+												{{ contact_form.name }}
+											</div>
+											<p>{{ contact_form.name.errors }}</p>
+											<div class="field half">
+												<label for="email">Email</label>
+												{{ contact_form.email }}
+											</div>
+											<p>{{ contact_form.email.errors }}</p>
+											<div class="field">
+												<label for="message">Message</label>
+												{{ contact_form.content}}
+											</div>
+											<p>{{ contact_form.content.errors }}</p>
+										</div>
+										<ul class="actions">
+								     <button type="submit">enviar</button>
+										</ul>
+									</form>
+						
+								</section>
+
+								<section>
+									<ul class="contact">
+											
+										{% for my_data in My_data %}
+									
+										<li>
+											<h3>Email</h3>
+											<a href="#">{{ my_data.email }}</a>
+										</li>
+										<li>
+											<h3>Phone</h3>
+											<span>{{ my_data.phone }}</span>
+										</li>
+										{% endfor %}
+										<li>
+											<h3>Social</h3>
+											<ul class="icons">
+												<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+												<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+												<li><a href="#" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+												<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+												<li><a href="#" class="icon brands fa-linkedin-in"><span class="label">LinkedIn</span></a></li>
+											</ul>
+										</li>
+									</ul>
+								</section>
+							</div>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper style1-alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; All rights reserved.</li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+	
+			<script src="{% static 'core/assets/js/jquery.min.js' %}"></script>
+			<script src="{% static 'core/assets/js/jquery.scrollex.min.js' %}"></script>
+			<script src="{% static 'core/assets/js/jquery.scrolly.min.js' %}"></script>
+			<script src="{% static 'core/assets/js/browser.min.js' %}"></script>
+			<script src="{% static 'core/assets/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'core/assets/js/util.js' %}"></script>
+			<script src="{% static 'core/assets/js/main.js' %}"></script>
+		
+	</body>
+</html>
